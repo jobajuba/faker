@@ -9,6 +9,7 @@ import type {
   Type,
 } from 'typedoc';
 import { ReflectionFlag, ReflectionKind } from 'typedoc';
+import type { MarkdownRenderer } from 'vitepress';
 import { createMarkdownRenderer } from 'vitepress';
 import type {
   Method,
@@ -33,11 +34,15 @@ export function toBlock(comment?: Comment): string {
   );
 }
 
-const markdown = createMarkdownRenderer(
-  pathOutputDir,
-  vitepressConfig.markdown,
-  '/'
-);
+let markdown: MarkdownRenderer;
+
+export async function initMarkdownRenderer(): Promise<void> {
+  markdown = await createMarkdownRenderer(
+    pathOutputDir,
+    vitepressConfig.markdown,
+    '/'
+  );
+}
 
 const htmlSanitizeOptions: sanitizeHtml.IOptions = {
   allowedTags: ['a', 'code', 'div', 'li', 'span', 'p', 'pre', 'ul'],
