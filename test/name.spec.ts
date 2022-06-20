@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { faker } from '../src';
-import { seededRuns } from './support/seededRuns';
+import { seededTests } from './support/seededRuns';
 
 const NON_SEEDED_BASED_RUN = 5;
 
@@ -24,19 +24,25 @@ describe('name', () => {
     faker.localeFallback = 'en';
   });
 
-  for (const seed of seededRuns) {
-    describe(`seed: ${seed}`, () => {
-      for (const functionName of functionNames) {
-        it(`${functionName}()`, () => {
-          faker.seed(seed);
+  seededTests(faker, 'name', (t) => {
+    t.itEach('jobTitle', 'jobDescriptor', 'jobArea', 'jobType');
 
-          const actual = faker.name[functionName]();
+    t.describeEach(
+      'firstName',
+      'lastName',
+      'middleName',
+      'gender',
+      'prefix',
+      'suffix'
+    )((t) => t.it('noArgs').it('with gender', 'male'));
 
-          expect(actual).toMatchSnapshot();
-        });
-      }
+    t.describe('findName', (t) => {
+      t.it('noArgs')
+        .it('with name', 'John', 'Doe')
+        .it('with gender', undefined, undefined, 'female')
+        .it('with name and gender', 'John', 'Doe', 'female');
     });
-  }
+  });
 
   describe(`random seeded tests for seed ${JSON.stringify(
     faker.seed()
