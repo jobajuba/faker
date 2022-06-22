@@ -1,7 +1,7 @@
 import validator from 'validator';
 import { afterEach, describe, expect, it } from 'vitest';
 import { faker } from '../src';
-import { seededRuns } from './support/seededRuns';
+import { seededRuns, seededTests } from './support/seededRuns';
 
 const NON_SEEDED_BASED_RUN = 5;
 
@@ -21,6 +21,28 @@ const functionNames = [
 describe('system', () => {
   afterEach(() => {
     faker.locale = 'en';
+  });
+
+  seededTests(faker, 'system', (t) => {
+    faker.system.fileExt();
+    t.itEach(
+      'commonFileExt',
+      'commonFileType',
+      'directoryPath',
+      'fileName',
+      'filePath',
+      'fileType',
+      'mimeType',
+      'semver'
+    );
+
+    t.describe('commonFileName', (t) => {
+      t.it('noArgs').it('with extension', 'ext');
+    });
+
+    t.describe('fileExt', (t) => {
+      t.it('noArgs').it('with mimeType', 'application/json');
+    });
   });
 
   for (const seed of seededRuns) {
