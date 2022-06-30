@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { faker, FakerError } from '../src';
+import type { Datatype } from '../src/modules/datatype';
 import { seededRuns } from './support/seededRuns';
 
 const NON_SEEDED_BASED_RUN = 25;
 
-const functionNames = [
+const functionNames: (keyof Datatype)[] = [
   'number',
   'float',
   'datetime',
   'string',
   'uuid',
   'boolean',
-  'hexadecimal',
   'json',
   'array',
   'bigInt',
@@ -170,15 +170,6 @@ describe('datatype', () => {
           faker.seed(seed);
 
           const actual = faker.datatype.string(42);
-          expect(actual).toMatchSnapshot();
-        });
-      });
-
-      describe('hexadecimal', () => {
-        it('should return a deterministic hex of given length', () => {
-          faker.seed(seed);
-
-          const actual = faker.datatype.hexadecimal(42);
           expect(actual).toMatchSnapshot();
         });
       });
@@ -453,20 +444,6 @@ describe('datatype', () => {
           const RFC4122 =
             /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
           expect(UUID).toMatch(RFC4122);
-        });
-      });
-
-      describe('hexadecimal', () => {
-        it('generates single hex character when no additional argument was provided', () => {
-          const hex = faker.datatype.hexadecimal();
-          expect(hex).toMatch(/^(0x)[0-9a-f]{1}$/i);
-          expect(hex.substring(2)).toHaveLength(1);
-        });
-
-        it('generates a random hex string', () => {
-          const hex = faker.datatype.hexadecimal(5);
-          expect(hex).toMatch(/^(0x)[0-9a-f]+$/i);
-          expect(hex.substring(2)).toHaveLength(5);
         });
       });
 
