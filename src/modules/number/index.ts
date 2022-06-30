@@ -63,4 +63,46 @@ export class NumberModule {
 
     return randomInt;
   }
+
+  /**
+   * Returns a [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) number.
+   *
+   * @param length Length of the generated number. Defaults to `1`.
+   *
+   * @example
+   * faker.datatype.hexadecimal() // 'b'
+   * faker.datatype.hexadecimal(10) // 'ae13f044fb'
+   */
+  hexadecimal(length = 1): string {
+    let hexString = '';
+
+    for (let i = 0; i < length; i++) {
+      hexString += this.faker.helpers.arrayElement([
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+      ]);
+    }
+
+    return hexString;
+  }
 }
