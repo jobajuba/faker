@@ -39,6 +39,7 @@ export type {
 } from './modules/color';
 export { Gender } from './modules/name';
 export type { GenderType } from './modules/name';
+export type { Range } from './modules/number';
 export type { ChemicalElement, Unit } from './modules/science';
 export { Faker };
 
