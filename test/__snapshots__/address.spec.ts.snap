@@ -26,8 +26,8 @@ exports[`address > seed: 42 > direction() > should not return abbreviation when 
 
 exports[`address > seed: 42 > nearbyGPSCoordinate() > returns expected coordinates 1`] = `
 [
-  "0.0490",
-  "-0.1364",
+  "0.0814",
+  "-0.0809",
 ]
 `;
 
@@ -81,8 +81,8 @@ exports[`address > seed: 1211 > direction() > should not return abbreviation whe
 
 exports[`address > seed: 1211 > nearbyGPSCoordinate() > returns expected coordinates 1`] = `
 [
-  "0.0247",
-  "0.1391",
+  "-0.0287",
+  "0.0596",
 ]
 `;
 
@@ -136,8 +136,8 @@ exports[`address > seed: 1337 > direction() > should not return abbreviation whe
 
 exports[`address > seed: 1337 > nearbyGPSCoordinate() > returns expected coordinates 1`] = `
 [
-  "0.0198",
-  "0.0002",
+  "0.0806",
+  "-0.0061",
 ]
 `;
 
