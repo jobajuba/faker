@@ -305,9 +305,7 @@ export class Color {
       this.faker.datatype.number({ min: 0, max: 255 })
     );
     if (includeAlpha) {
-      color.push(
-        this.faker.number.float({ min: 0, max: 1, precision: 2 })
-      );
+      color.push(this.faker.number.float({ min: 0, max: 1, precision: 2 }));
       cssFunction = 'rgba';
     }
     return toColorFormat(color, format, cssFunction);
@@ -543,13 +541,9 @@ export class Color {
    */
   lab(options?: { format?: ColorFormat }): string | number[];
   lab(options?: { format?: ColorFormat }): string | number[] {
-    const lab = [
-      this.faker.number.float({ min: 0, max: 1, precision: 6 }),
-    ];
+    const lab = [this.faker.number.float({ min: 0, max: 1, precision: 6 })];
     for (let i = 0; i < 2; i++) {
-      lab.push(
-        this.faker.number.float({ min: -100, max: 100, precision: 4 })
-      );
+      lab.push(this.faker.number.float({ min: -100, max: 100, precision: 4 }));
     }
     return toColorFormat(lab, options?.format || 'decimal', 'lab');
   }
@@ -610,13 +604,9 @@ export class Color {
    */
   lch(options?: { format?: ColorFormat }): string | number[];
   lch(options?: { format?: ColorFormat }): string | number[] {
-    const lch = [
-      this.faker.number.float({ min: 0, max: 1, precision: 6 }),
-    ];
+    const lch = [this.faker.number.float({ min: 0, max: 1, precision: 6 })];
     for (let i = 0; i < 2; i++) {
-      lch.push(
-        this.faker.number.float({ min: 0, max: 230, precision: 1 })
-      );
+      lch.push(this.faker.number.float({ min: 0, max: 230, precision: 1 }));
     }
     return toColorFormat(lch, options?.format || 'decimal', 'lch');
   }

@@ -353,7 +353,7 @@ export class Helpers {
     options: { probability?: number } = {}
   ): T | undefined {
     const { probability = 0.5 } = options;
-    if ((this.faker.number.int({ min: 0, max: 100 }) / 100) < probability) {
+    if (this.faker.number.int({ min: 0, max: 100 }) / 100 < probability) {
       return callback();
     }
     return undefined;

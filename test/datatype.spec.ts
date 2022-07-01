@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { faker, FakerError } from '../src';
+import { faker } from '../src';
 import type { Datatype } from '../src/modules/datatype';
 import { seededRuns } from './support/seededRuns';
 
