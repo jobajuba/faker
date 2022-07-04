@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { faker } from '../src';
 import { FakerError } from '../src/errors/faker-error';
+import type { Datatype } from '../src/modules/datatype';
+import type { Internet } from '../src/modules/internet';
 import { seededRuns } from './support/seededRuns';
 
 const NON_SEEDED_BASED_RUN = 5;
@@ -43,7 +45,7 @@ describe('unique', () => {
       it('unique(() => number)', () => {
         faker.seed(seed);
 
-        const actual = faker.unique(faker.datatype.number);
+        const actual = faker.unique(() => faker.datatype.number());
 
         expect(actual).toMatchSnapshot();
       });
@@ -51,7 +53,11 @@ describe('unique', () => {
       it('unique(() => number), args)', () => {
         faker.seed(seed);
 
-        const actual = faker.unique(faker.datatype.number, [50]);
+        const actual = faker.unique(
+          (...args: Parameters<Datatype['number']>) =>
+            faker.datatype.number(...args),
+          [50]
+        );
 
         expect(actual).toMatchSnapshot();
       });
@@ -64,22 +70,22 @@ describe('unique', () => {
     for (let i = 1; i <= NON_SEEDED_BASED_RUN; i++) {
       describe('unique()', () => {
         it('should be possible to call a function with no arguments and return a result', () => {
-          const result = faker.unique(faker.internet.email);
+          const result = faker.unique(() => faker.internet.email());
           expect(result).toBeTypeOf('string');
         });
 
         it('should be possible to call a function with arguments and return a result', () => {
-          const result = faker.unique(faker.internet.email, [
-            'fName',
-            'lName',
-            'domain',
-          ]); // third argument is provider, or domain for email
+          const result = faker.unique(
+            (...args: Parameters<Internet['email']>) =>
+              faker.internet.email(...args),
+            ['fName', 'lName', 'domain']
+          ); // third argument is provider, or domain for email
           expect(result).toMatch(/\@domain/);
         });
 
         it('should be possible to limit unique call by maxTime in ms', () => {
           expect(() => {
-            faker.unique(faker.internet.protocol, [], {
+            faker.unique(() => faker.internet.protocol(), [], {
               maxTime: 1,
               maxRetries: 9999,
               exclude: ['https', 'http'],
@@ -94,7 +100,7 @@ Try adjusting maxTime or maxRetries parameters for faker.unique().`)
 
         it('should be possible to limit unique call by maxRetries', () => {
           expect(() => {
-            faker.unique(faker.internet.protocol, [], {
+            faker.unique(() => faker.internet.protocol(), [], {
               maxTime: 5000,
               maxRetries: 5,
               exclude: ['https', 'http'],
@@ -109,7 +115,7 @@ Try adjusting maxTime or maxRetries parameters for faker.unique().`)
 
         it('should throw a FakerError instance on error', () => {
           expect(() => {
-            faker.unique(faker.internet.protocol, [], {
+            faker.unique(() => faker.internet.protocol(), [], {
               maxTime: 5000,
               maxRetries: 5,
               exclude: ['https', 'http'],
