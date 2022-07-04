@@ -79,11 +79,11 @@ export class Hacker {
    */
   phrase(): string {
     const data = {
-      abbreviation: this.abbreviation,
-      adjective: this.adjective,
-      ingverb: this.ingverb,
-      noun: this.noun,
-      verb: this.verb,
+      abbreviation: () => this.abbreviation(),
+      adjective: () => this.adjective(),
+      ingverb: () => this.ingverb(),
+      noun: () => this.noun(),
+      verb: () => this.verb(),
     };
 
     const phrase = this.faker.helpers.arrayElement(
