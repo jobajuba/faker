@@ -290,7 +290,10 @@ describe('helpers', () => {
 
         it('function returns unique array', () => {
           const length = faker.datatype.number({ min: 1, max: 6 });
-          const unique = faker.helpers.uniqueArray(faker.lorem.word, length);
+          const unique = faker.helpers.uniqueArray(
+            () => faker.lorem.word(),
+            length
+          );
           expect(unique).toHaveLength(length);
           expect(new Set(unique).size).toBe(length);
         });
